@@ -1,0 +1,270 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioBalancer Pro | موازن الصوت الاحترافي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary: #22c55e;
+            --dark: #020617;
+            --card-bg: rgba(15, 23, 42, 0.6);
+        }
+
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            background-color: var(--dark);
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.15) 0%, transparent 50%);
+        }
+
+        .studio-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="glass-nav fixed top-0 w-full">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-wave-square text-white"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tighter">AudioBalancer<span class="text-green-500">.</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+                <a href="#tool" class="hover:text-green-500 transition-colors">الأداة</a>
+                <a href="#features" class="hover:text-green-500 transition-colors">المميزات</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-gradient pt-40 pb-10 px-6">
+        <div class="max-w-7xl mx-auto text-center mb-12 fade-in">
+            <h2 class="text-5xl md:text-6xl font-black leading-tight mb-6">
+                حول صوتك إلى <span class="text-green-500">توازن مثالي</span>
+            </h2>
+            <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">
+                الأداة الأسرع لموازنة قنوات الصوت الستيريو وتحويلها إلى نمط Mono متوازن بضغطة واحدة، دون رفع ملفاتك إلى أي خادم.
+            </p>
+        </div>
+
+        <div id="tool" class="w-full max-w-[95%] mx-auto fade-in" style="animation-delay: 0.2s">
+            <div class="studio-card rounded-[40px] p-2 relative overflow-hidden">
+                <div class="relative z-10 w-full">
+                    <div id="dropZone" class="group w-full flex flex-col items-center justify-center py-20 px-6 border-2 border-dashed border-slate-700 rounded-[36px] text-center cursor-pointer hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-500">
+                        <input type="file" id="fileInput" class="hidden" accept="audio/*">
+                        <div class="w-20 h-20 bg-slate-800 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-slate-700 transition-all border border-slate-700">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-green-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">اسحب الملف الصوتي هنا أو اضغط للاختيار</h3>
+                        <p class="text-slate-500 text-base max-w-md mx-auto">يدعم WAV, MP3 وكافة الصيغ الأخرى</p>
+                    </div>
+
+                    <div id="statusArea" class="hidden py-32 text-center">
+                        <div class="relative inline-block mb-8">
+                            <div class="w-20 h-20 border-4 border-slate-800 border-t-green-500 rounded-full animate-spin"></div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">جاري معالجة الصوت الآن...</h3>
+                        <p class="text-slate-500">يتم دمج القنوات الصوتية وتوحيد الترددات</p>
+                    </div>
+
+                    <div id="resultArea" class="hidden fade-in py-8 px-4 text-center">
+                        <div class="bg-green-500/5 rounded-[32px] p-6 border border-green-500/10 inline-block w-full max-w-2xl">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-sm text-white"></i>
+                                </div>
+                                <h3 class="text-lg font-bold">اكتملت المعالجة بنجاح</h3>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <audio id="audioPreview" controls class="w-full h-10"></audio>
+                            </div>
+
+                            <button id="downloadBtn" class="mx-auto w-full max-w-xs bg-white text-black hover:bg-slate-100 py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2">
+                                <i class="fas fa-download"></i> حفظ الملف (WAV)
+                            </button>
+                            
+                            <button onclick="location.reload()" class="mt-4 text-slate-500 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">ملف جديد</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-black mb-4">لماذا تختار AudioBalancer؟</h2>
+                <p class="text-slate-400">بساطة الاستخدام مع قوة في الأداء.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="feature-card p-8 rounded-[32px]">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">خصوصية كاملة</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">تتم المعالجة داخل متصفحك فقط. لا يتم رفع أي بيانات إلى خوادمنا نهائياً.</p>
+                </div>
+                <div class="feature-card p-8 rounded-[32px]">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">سرعة البرق</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">تتم المعالجة في أجزاء من الثانية بفضل تقنيات الويب الحديثة.</p>
+                </div>
+                <div class="feature-card p-8 rounded-[32px]">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-gem text-xl text-purple-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">جودة أصلية</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">نحافظ على جودة الصوت الخام ونوفر تصديراً بصيغة WAV احترافية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const statusArea = document.getElementById('statusArea');
+        const resultArea = document.getElementById('resultArea');
+        const audioPreview = document.getElementById('audioPreview');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        dropZone.onclick = () => fileInput.click();
+        
+        fileInput.onchange = async (e) => {
+            if (e.target.files[0]) {
+                const originalFile = e.target.files[0];
+                dropZone.classList.add('hidden');
+                statusArea.classList.remove('hidden');
+                
+                try {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const arrayBuffer = await originalFile.arrayBuffer();
+                    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+                    const fixedBuffer = audioCtx.createBuffer(2, audioBuffer.length, audioBuffer.sampleRate);
+                    const leftIn = audioBuffer.getChannelData(0);
+                    const rightIn = audioBuffer.numberOfChannels > 1 ? audioBuffer.getChannelData(1) : leftIn;
+
+                    const leftOut = fixedBuffer.getChannelData(0);
+                    const rightOut = fixedBuffer.getChannelData(1);
+
+                    for (let i = 0; i < audioBuffer.length; i++) {
+                        const mono = (leftIn[i] + rightIn[i]) / 2;
+                        leftOut[i] = mono;
+                        rightOut[i] = mono;
+                    }
+
+                    const wavBlob = bufferToWave(fixedBuffer, audioBuffer.length);
+                    const url = URL.createObjectURL(wavBlob);
+
+                    audioPreview.src = url;
+                    downloadBtn.onclick = () => {
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `Balanced_${originalFile.name.split('.')[0]}.wav`;
+                        a.click();
+                    };
+
+                    setTimeout(() => {
+                        statusArea.classList.add('hidden');
+                        resultArea.classList.remove('hidden');
+                    }, 1200);
+
+                } catch (err) {
+                    alert('خطأ في معالجة الملف.');
+                    location.reload();
+                }
+            }
+        };
+
+        function bufferToWave(abuffer, len) {
+            const numOfChan = 2;
+            const length = len * numOfChan * 2 + 44;
+            const buffer = new ArrayBuffer(length);
+            const view = new DataView(buffer);
+            let pos = 0;
+
+            const setUint16 = (data) => { view.setUint16(pos, data, true); pos += 2; };
+            const setUint32 = (data) => { view.setUint32(pos, data, true); pos += 4; };
+
+            setUint32(0x46464952);
+            setUint32(length - 8);
+            setUint32(0x45564157);
+            setUint32(0x20746d66);
+            setUint32(16);
+            setUint16(1);
+            setUint16(numOfChan);
+            setUint32(abuffer.sampleRate);
+            setUint32(abuffer.sampleRate * 2 * numOfChan);
+            setUint16(numOfChan * 2);
+            setUint16(16);
+            setUint32(0x61746164);
+            setUint32(length - pos - 4);
+
+            const ch1 = abuffer.getChannelData(0);
+            const ch2 = abuffer.getChannelData(1);
+
+            for (let i = 0; i < len; i++) {
+                let s1 = Math.max(-1, Math.min(1, ch1[i]));
+                view.setInt16(pos, s1 < 0 ? s1 * 0x8000 : s1 * 0x7FFF, true);
+                pos += 2;
+                let s2 = Math.max(-1, Math.min(1, ch2[i]));
+                view.setInt16(pos, s2 < 0 ? s2 * 0x8000 : s2 * 0x7FFF, true);
+                pos += 2;
+            }
+            return new Blob([buffer], { type: "audio/wav" });
+        }
+    </script>
+</body>
+</html>
+
+```
